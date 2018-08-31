@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        img{
+            width:260px;
+            transition:all 1s;
+            left:0;
+            top:0;
+            position: absolute;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let data = [
+        "temp_img02.jpg",
+        "temp_img03.jpg",
+        "temp_img04.jpg",
+        "temp_img05.jpg",
+        "temp_img06.jpg",
+        "temp_img07.jpg",
+        "temp_img08.jpg",
+        "temp_img09.jpg",
+        "temp_img10.jpg",
+        "temp_img11.jpg",
+        "temp_img12.jpg",
+        "temp_img13.jpg",
+        "temp_img14.jpg",
+        "temp_img15.jpg",
+    ]
+    //创建图片
+    for(let i = 0;i<data.length;i++){
+        let img = new Image();
+        img.src = "./src/" + data[i];
+        document.body.appendChild(img);
+    }
+    //定位坐标
+    const move=()=>{
+        let img = document.getElementsByTagName("img");
+        let imgWidth = img[0].offsetWidth;
+        let margin = 10;
+        let imgHeight = []; 
+        let bodyWidth = document.body.scrollWidth;
+        let count = parseInt(bodyWidth / imgWidth);
+        console.log(count);
+        setTimeout(()=>{
+            for(let i = 0;img.length > i;i++){
+            if(i<count){
+                img[i].style["left"] = (imgWidth + margin) * i + "px";
+                img[i].style["top"] = "0px";
+                imgHeight[i] = img[i].offsetHeight;
+            }else{
+                let s = i % count;
+                img[i].style["left"] = (imgWidth + margin) * s + "px";
+                img[i].style["top"] = (margin + imgHeight[s]) + "px";
+                imgHeight[s] = img[i].offsetHeight + imgHeight[s] + margin;
+            }
+        }
+        },50)
+    }
+    move();
+    window.onresize = move;
+</script>
+</html>
